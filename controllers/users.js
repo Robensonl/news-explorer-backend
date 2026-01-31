@@ -59,7 +59,7 @@ module.exports.login = async (req, res, next) => {
     const token = jwt.sign(
       { _id: user._id },
       jwtSecret,
-      { expiresIn: "120d" },
+      { expiresIn: "7d" },
     );
 
     const userResponse = user.toObject();

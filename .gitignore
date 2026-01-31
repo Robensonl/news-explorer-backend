@@ -21,9 +21,15 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *. sln
-*.sw? 
+*.sw?
 
 # Environment variables
 .env
 . env. local
 .env.production
+
+# Markdown Documentation (No subir al git)
+*.md
+!README.md
+.env.example
+.env.test.example

@@ -15,11 +15,11 @@ router.post(
   "/",
   celebrate({
     body: Joi.object().keys({
-      keyword: Joi.string().required().trim(),
-      title: Joi.string().required().trim(),
-      text: Joi.string().required().trim(),
-      date: Joi.string().required(),
-      source: Joi.string().required().trim(),
+      keyword: Joi.string().required().trim().max(50),
+      title: Joi.string().required().trim().max(200),
+      text: Joi.string().required().trim().max(5000),
+      date: Joi.string().required().max(50),
+      source: Joi.string().required().trim().max(100),
       link: Joi.string().required().custom(validateURL, "Validación de URL"),
       image: Joi.string().required().custom(validateURL, "Validación de URL"),
     }),

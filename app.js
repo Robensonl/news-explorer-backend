@@ -9,6 +9,7 @@ require("dotenv").config();
 const auth = require("./middlewares/auth");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const { createUser, login } = require("./controllers/users");
+const validationSchemas = require("./middlewares/validation");
 const usersRouter = require("./routes/users");
 const articlesRouter = require("./routes/articles");
 
@@ -20,7 +21,7 @@ app.use(helmet());
 
 const allowedOrigins = [
   "http://localhost:5176",
-  "http://localhost:5173",
+  "http://localhost:5174",
 ];
 const corsOptions = {
   origin: (origin, callback) => {
@@ -59,8 +60,8 @@ if (NODE_ENV === "development") {
   });
 }
 
-app.post("/signup", authLimiter, createUser);
-app.post("/signin", authLimiter, login);
+app.post("/signup", authLimiter, validationSchemas.signup, createUser);
+app.post("/signin", authLimiter, validationSchemas.signin, login);
 
 app.use(auth);
 app.use("/users", usersRouter);

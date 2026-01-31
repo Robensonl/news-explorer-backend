@@ -7,9 +7,10 @@ const {
   getCurrentUser,
 } = require("../controllers/users");
 const validationSchemas = require("../middlewares/validation");
+const auth = require("../middlewares/auth");
 
-router.get("/", getUsers);
+router.get("/", auth, getUsers);
 router.get("/me", getCurrentUser);
-router.get("/:userId", validationSchemas.userId, getUserById);
+router.get("/:userId", auth, validationSchemas.userId, getUserById);
 
 module.exports = router;
