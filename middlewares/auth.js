@@ -1,30 +1,30 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
   // Verificar header Authorization
   const { authorization } = req.headers;
 
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Hmm lo sentimos, se requiere autorización' });
+  if (!authorization || !authorization.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Hmm lo sentimos, se requiere autorización" });
   }
 
   // Extraer token
-  const token = authorization.replace('Bearer ', '');
+  const token = authorization.replace("Bearer ", "");
   let payload;
 
   try {
     if (!process.env.JWT_SECRET) {
-      throw new Error('JWT_SECRET no configurado en variables de entorno');
+      throw new Error("JWT_SECRET no configurado en variables de entorno");
     }
     payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
-    if (err.name === 'JsonWebTokenError') {
-      return res.status(401).json({ message: 'Token inválido' });
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({ message: "Token inválido" });
     }
-    if (err.name === 'TokenExpiredError') {
-      return res.status(401).json({ message: 'Token expirado' });
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({ message: "Token expirado" });
     }
-    return res.status(401).json({ message: 'Error de autorización' });
+    return res.status(401).json({ message: "Error de autorización" });
   }
 
   req.user = payload;
