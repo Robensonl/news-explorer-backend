@@ -3,7 +3,8 @@
   "extends": "airbnb-base",
    "env": {
     "node": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -15,6 +16,7 @@
     "quotes": ["error", "double"],
     "import/extensions": "off",
     "consistent-return": "off",
-    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+    "global-require": "off"
   }
 }

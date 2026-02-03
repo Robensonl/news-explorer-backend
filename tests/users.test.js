@@ -70,7 +70,6 @@ describe("Auth & Database", () => {
     });
   });
 
-
   describe("POST /signin", () => {
     test("6. Login exitoso devuelve token", async () => {
       const res = await request(app)
@@ -111,7 +110,6 @@ describe("Auth & Database", () => {
     });
   });
 
-
   describe("Database & Validation", () => {
     test("11. Email único en BD", async () => {
       try {
@@ -120,7 +118,7 @@ describe("Auth & Database", () => {
           password: "AnotherPass123",
           name: "Duplicate",
         });
-        fail("Debería fallar");
+        throw new Error("Debería fallar");
       } catch (err) {
         expect(err).toBeDefined();
       }
@@ -132,7 +130,7 @@ describe("Auth & Database", () => {
           password: "TestPassword123",
           name: "No Email",
         });
-        fail("Debería fallar");
+        throw new Error("Debería fallar");
       } catch (err) {
         expect(err).toBeDefined();
       }
@@ -144,7 +142,7 @@ describe("Auth & Database", () => {
           email: "test2@example.com",
           name: "No Password",
         });
-        fail("Debería fallar");
+        throw new Error("Debería fallar");
       } catch (err) {
         expect(err).toBeDefined();
       }

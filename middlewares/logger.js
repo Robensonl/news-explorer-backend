@@ -16,7 +16,7 @@ const requestLogger = expressWinston.logger({
   msg: "HTTP req.method req.url",
   expressFormat: true,
   colorize: false,
-  ignoreRoute: (req, res) => req.url === "/health",
+  ignoreRoute: (req) => req.url === "/health",
 });
 
 const errorLogger = expressWinston.errorLogger({

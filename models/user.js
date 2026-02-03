@@ -34,14 +34,16 @@ const userSchema = new mongoose.Schema(
     versionKey: false,
     toJSON: {
       transform: (doc, ret) => {
-        delete ret.password;
-        return ret;
+        const result = ret;
+        delete result.password;
+        return result;
       },
     },
     toObject: {
       transform: (doc, ret) => {
-        delete ret.password;
-        return ret;
+        const result = ret;
+        delete result.password;
+        return result;
       },
     },
   },

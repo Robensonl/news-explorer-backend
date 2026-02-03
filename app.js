@@ -20,14 +20,20 @@ const { PORT = 3000, MONGODB_URI } = process.env;
 app.use(helmet());
 
 const allowedOrigins = [
-  "http://localhost:5176",
+  "http://localhost:3000",
+  "http://localhost:5173",
   "http://localhost:5174",
+  "http://localhost:5175",
+  "http://localhost:5176",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:5173",
 ];
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.warn(`CORS rejected: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
@@ -90,13 +96,22 @@ app.use(errorLogger);
 
 app.use((err, req, res, next) => {
   if (isCelebrateError(err)) {
-    console.error("Celebrate Validation Error:", err.message);
-    const details = err.details.get(err.details.keys().next().value);
-    const message = details?.message || "Validation failed";
+    const details = err.details.get("body") || err.details.get("params") || err.details.get("headers");
 
+    let errorMessage = "Validation failed";
+    if (details) {
+      const errors = details.details.map((d) => ({
+        key: d.context.key,
+        type: d.type,
+        message: d.message,
+      }));
+      errorMessage = errors.map((e) => `${e.key}: ${e.message}`).join(", ");
+    }
+
+    console.error("Celebrate Validation Error:", errorMessage);
     return res.status(400).json({
       error: true,
-      message,
+      message: errorMessage,
     });
   }
   next(err);
