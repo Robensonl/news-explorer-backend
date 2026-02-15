@@ -12,6 +12,7 @@ const { createUser, login } = require("./controllers/users");
 const validationSchemas = require("./middlewares/validation");
 const usersRouter = require("./routes/users");
 const articlesRouter = require("./routes/articles");
+const newsRouter = require("./routes/news");
 
 const app = express();
 const NODE_ENV = process.env.NODE_ENV || "development";
@@ -20,13 +21,7 @@ const { PORT = 3000, MONGODB_URI } = process.env;
 app.use(helmet());
 
 const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:5173",
-  "http://localhost:5174",
-  "http://localhost:5175",
-  "http://localhost:5176",
-  "http://127.0.0.1:3000",
-  "http://127.0.0.1:5173",
+  "https://news-explorer-frontend-seven.vercel.app"
 ];
 const corsOptions = {
   origin: (origin, callback) => {
@@ -72,6 +67,7 @@ app.post("/signin", authLimiter, validationSchemas.signin, login);
 app.use(auth);
 app.use("/users", usersRouter);
 app.use("/articles", articlesRouter);
+app.use("/news", newsRouter);
 
 app.get("/", (req, res) => {
   res.json({
@@ -79,7 +75,7 @@ app.get("/", (req, res) => {
     version: "1.0.0",
     endpoints: {
       public: ["POST /signup", "POST /signin"],
-      protected: ["GET /users/me", "PATCH /users/me", "GET /articles", "POST /articles", "DELETE /articles/:id"],
+      protected: ["GET /users/me", "PATCH /users/me", "GET /articles", "POST /articles", "DELETE /articles/:id", "GET /news"],
     },
   });
 });
