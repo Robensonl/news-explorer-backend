@@ -43,6 +43,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.0",
     "mongoose": "^9.1.5",
+    "node-fetch": "^3.3.2",
     "pg-promise": "^12.3.0",
     "validator": "^13.15.26",
     "winston": "^3.19.0"

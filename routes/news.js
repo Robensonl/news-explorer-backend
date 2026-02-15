@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const fetch = require('node-fetch');
 const { celebrate, Joi } = require('celebrate');
 
 const getLastWeekDate = () => {
