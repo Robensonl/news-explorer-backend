@@ -21,7 +21,11 @@ const { PORT = 3000, MONGODB_URI } = process.env;
 app.use(helmet());
 
 const allowedOrigins = [
-  "https://news-explorer-frontend-seven.vercel.app"
+  "http://localhost:5174",
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://localhost:5175",
 ];
 const corsOptions = {
   origin: (origin, callback) => {
