@@ -68,10 +68,11 @@ if (NODE_ENV === "development") {
 app.post("/signup", authLimiter, validationSchemas.signup, createUser);
 app.post("/signin", authLimiter, validationSchemas.signin, login);
 
+app.use("/news", newsRouter);
+
 app.use(auth);
 app.use("/users", usersRouter);
 app.use("/articles", articlesRouter);
-app.use("/news", newsRouter);
 
 app.get("/", (req, res) => {
   res.json({
@@ -147,3 +148,7 @@ if (NODE_ENV !== "test") {
     });
 }
 module.exports = app;
+
+
+
+
